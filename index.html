@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Futec Solutions - 제품 & 파트너 포털</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #3b82f6;    /* 연한 파랑 계열 */
+      --primary-soft: #e5f0ff;
+      --text-main: #111827;
+      --text-sub: #6b7280;
+      --bg: #ffffff;
+      --border: #e5e7eb;
+      --nav-bg: #0A4C98;     /* 상단, 서브 메뉴용 파랑 배경 */
+      --nav-text: #f9fafb;   /* 메뉴용 흰색 텍스트 */
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--nav-bg);
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;          /* 로고 높이 조정 */
+      width: auto;
+      display: block;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 24px;
+      font-size: 0.95rem;
+      align-items: center;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-menu > .nav-item > a {
+      padding: 4px 0;
+      position: relative;
+      color: var(--nav-text);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav-menu > .nav-item > a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: var(--nav-text);
+      transition: width 0.2s ease;
+    }
+
+    .nav-menu > .nav-item > a:hover::after {
+      width: 100%;
+    }
+
+    /* 서브 메뉴 */
+    .submenu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      background: var(--nav-bg);        /* 서브메뉴도 같은 파랑 */
+      border-radius: 0 0 8px 8px;
+      border: 1px solid #06397B;        /* 약간 더 진한 테두리 */
+      border-top: none;
+      display: none;
+      padding: 8px 0;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.3);
+    }
+
+    .submenu a {
+      display: block;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      color: var(--nav-text);
+      cursor: pointer;
+    }
+
+    .submenu a:hover {
+      background: #06397B;              /* 로고 메인색으로 Hover */
+    }
+
+    .nav-item:hover .submenu {
+      display: block;
+    }
+
+    .nav-cta {
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--nav-text);
+      color: var(--nav-text);
+      background: transparent;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      background: var(--nav-text);
+      color: var(--nav-bg);
+    }
+
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--nav-text);
+    }
+
+    /* Hero 섹션 */
+    .hero {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 32px;
+      padding: 48px 16px 56px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--text-sub);
+      margin-bottom: 24px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: #1e3a8a;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primary,
+    .btn-outline {
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      border-color: var(--border);
+      color: #111827;
+    }
+
+    .btn-outline:hover {
+      background: #f9fafb;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e0edff;
+    }
+
+    .hero-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #1d4ed8;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .metric {
+      padding: 12px;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+
+    .metric-label {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .metric-sub {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+    }
+
+    .hero-note {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      border-top: 1px dashed #e5e7eb;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    /* 공통 섹션 스타일 */
+    section {
+      padding: 48px 16px;
+    }
+
+    section:nth-of-type(odd) {
+      background: #f9fafb;
+    }
+
+    section:nth-of-type(even) {
+      background: #ffffff;
+    }
+
+    .section-header {
+      max-width: 1120px;
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .section-desc {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      max-width: 520px;
+    }
+
+    .section-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: #1d4ed8;
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+
+    /* 제품 섹션 */
+    .cards {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .card-tagline {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+
+    .card-body {
+      font-size: 0.86rem;
+      color: #4b5563;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .card-footer {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #2563eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    /* 산업/솔루션 섹션 */
+    .solutions-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .solution {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 16px;
+      border: 1px dashed #bfdbfe;
+    }
+
+    .solution-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .solution-body {
+      font-size: 0.84rem;
+      color: #4b5563;
+      margin-bottom: 8px;
+    }
+
+    .solution-meta {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+    }
+
+    /* 리소스 섹션 */
+    .resources-layout {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 20px;
+    }
+
+    .resource-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .resource-item {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.86rem;
+    }
+
+    .resource-meta {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+    }
+
+    .resource-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .resource-side {
+      border-radius: 14px;
+      padding: 16px;
+      background: #e5f0ff;
+      border: 1px solid #bfdbfe;
+      font-size: 0.83rem;
+      color: #1e3a8a;
+    }
+
+    .resource-side h4 {
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    /* 회사 섹션 */
+    .company-layout {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+    }
+
+    .company-text {
+      font-size: 0.9rem;
+      color: #4b5563;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .company-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .fact {
+      padding: 10px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+
+    .fact-label {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin-bottom: 2px;
+    }
+
+    .fact-value {
+      font-weight: 600;
+    }
+
+    /* 파트너 포털 섹션 */
+    .partner-layout {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+    }
+
+    .portal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid #bfdbfe;
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.12);
+      font-size: 0.88rem;
+    }
+
+    .portal-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.82rem;
+    }
+
+    .field label {
+      color: #4b5563;
+    }
+
+    .field input {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .field input:focus {
+      outline: 2px solid #bfdbfe;
+      outline-offset: 1px;
+    }
+
+    .portal-meta {
+      font-size: 0.76rem;
+      color: var(--text-sub);
+      margin-top: 8px;
+    }
+
+    .partner-benefits {
+      font-size: 0.86rem;
+      color: #4b5563;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .partner-benefits ul {
+      padding-left: 16px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 16px;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      text-align: center;
+    }
+
+    /* 반응형 */
+    @media (max-width: 960px) {
+      .hero-inner,
+      .resources-layout,
+      .company-layout,
+      .partner-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-inner {
+        padding-top: 32px;
+      }
+
+      .cards,
+      .solutions-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 64px;
+        right: 0;
+        left: 0;
+        flex-direction: column;
+        background: var(--nav-bg);
+        border-bottom: 1px solid #06397B;
+        padding: 10px 16px 12px;
+      }
+
+      .nav-menu.open {
+        display: flex;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .submenu {
+        position: static;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        padding: 4px 0 4px 8px;
+      }
+
+      .submenu a {
+        font-size: 0.82rem;
+        padding: 4px 16px;
+      }
+
+      .hero-title {
+        font-size: 1.6rem;
+      }
+
+      .cards,
+      .solutions-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <!-- 로고 이미지로 교체: src 경로를 실제 파일 위치로 변경 -->
+    <div class="logo">
+      <img src="images/futec-logo.png" alt="Futec Solutions Logo" />
+    </div>
+
+    <!-- 상단 메뉴 + 서브 메뉴 -->
+    <nav class="nav-menu" id="navMenu">
+      <!-- 제품 -->
+      <div class="nav-item">
+        <a data-scroll="#products">제품</a>
+        <div class="submenu">
+          <a data-scroll="#products">제품 개요</a>
+          <a href="#">VMS / VSaaS</a>
+          <a href="#">AI Analytics Suite</a>
+          <a href="#">Access & ALPR</a>
+        </div>
+      </div>
+
+      <!-- 산업/솔루션 -->
+      <div class="nav-item">
+        <a data-scroll="#industries">산업/솔루션</a>
+        <div class="submenu">
+          <a data-scroll="#industries">전체 산업 보기</a>
+          <a href="#">공항·터미널</a>
+          <a href="#">제조·물류</a>
+          <a href="#">오피스·R&D</a>
+        </div>
+      </div>
+
+      <!-- 리소스 -->
+      <div class="nav-item">
+        <a data-scroll="#resources">리소스</a>
+        <div class="submenu">
+          <a data-scroll="#resources">브로슈어 & 데이터시트</a>
+          <a href="#">제안서 템플릿</a>
+          <a href="#">교육 & 웨비나</a>
+          <a href="#">FAQ</a>
+        </div>
+      </div>
+
+      <!-- 회사 -->
+      <div class="nav-item">
+        <a data-scroll="#company">회사</a>
+        <div class="submenu">
+          <a data-scroll="#company">회사 소개</a>
+          <a href="#">비전 & 미션</a>
+          <a href="#">레퍼런스</a>
+          <a href="#">연락처</a>
+        </div>
+      </div>
+
+      <!-- 파트너 포털 -->
+      <div class="nav-item">
+        <a data-scroll="#partner-portal">파트너 포털</a>
+      </div>
+    </nav>
+
+    <button class="nav-cta" data-scroll="#partner-portal">파트너 로그인</button>
+    <div class="menu-toggle" id="menuToggle">☰</div>
+  </div>
+</header>
+
+<main>
+  <!-- 이하 섹션들은 이전 버전과 동일 (Hero / 제품 / 산업 / 리소스 / 회사 / 파트너 포털) -->
+  <!-- 필요하시면 이 아래도 다시 수정해 드릴 수 있습니다. -->
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="section-badge">Video Intelligence & Physical Security</p>
+        <h1 class="hero-title">
+          엔터프라이즈급 영상보안 플랫폼과<br />
+          파트너 비즈니스를 위한 단일 포털
+        </h1>
+        <p class="hero-sub">
+          Futec Solutions는 VMS, AI 영상분석, 출입통제 및 ALPR을 통합한
+          소프트웨어 제품과 채널 파트너를 위한 리소스를 한 곳에서 제공합니다.
+          글로벌 벤더와의 연계를 통해 안정적인 레퍼런스와 수익 모델을 함께 만듭니다.
+        </p>
+
+        <div class="hero-badges">
+          <span class="badge">멀티 사이트·멀티 테넌트 대응</span>
+          <span class="badge">SI·리셀러 전용 리소스 제공</span>
+          <span class="badge">API·SDK 통합 지원</span>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn-primary" data-scroll="#products">
+            제품 라인업 보기
+          </button>
+          <button class="btn-outline" data-scroll="#partner-portal">
+            파트너 포털 접속
+          </button>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="hero-card-title">프로젝트 한눈에 보기</div>
+        <div class="hero-metrics">
+          <div class="metric">
+            <div class="metric-label">활성 프로젝트</div>
+            <div class="metric-value">32</div>
+            <div class="metric-sub">공항, 병원, 제조, 오피스</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">등록 파트너사</div>
+            <div class="metric-value">48+</div>
+            <div class="metric-sub">국내 SI / 리셀러 / MSP</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">지원 장비 수</div>
+            <div class="metric-value">3,500+</div>
+            <div class="metric-sub">카메라·컨트롤러·AI Box</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">SLA 만족도</div>
+            <div class="metric-value">98%</div>
+            <div class="metric-sub">파트너 지원 설문 기준</div>
+          </div>
+        </div>
+        <p class="hero-note">
+          실제 수치는 예시이며, 귀사의 레퍼런스/고객 기준으로 자유롭게 수정하시면 됩니다.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 제품 / 산업 / 리소스 / 회사 / 파트너 포털 섹션은 직전 버전과 동일하므로 생략 없이 그대로 사용 가능합니다 -->
+  <!-- ... (위에서 드렸던 전체 코드의 나머지 부분을 이어 붙이시면 됩니다) -->
+</main>
+
+<footer>
+  © 20XX Futec Solutions. All rights reserved. · 본 페이지는 예시용 템플릿이며,
+  실제 제품명·사양·정책은 귀사의 기준에 맞게 수정해 주십시오.
+</footer>
+
+<script>
+  // 상단 메뉴/버튼 클릭 시 부드러운 스크롤
+  document.querySelectorAll("[data-scroll]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      var targetSelector = el.getAttribute("data-scroll");
+      if (!targetSelector) return;
+      var target = document.querySelector(targetSelector);
+      if (!target) return;
+      window.scrollTo({
+        top: target.offsetTop - 70,
+        behavior: "smooth",
+      });
+      var navMenu = document.getElementById("navMenu");
+      navMenu.classList.remove("open");
+    });
+  });
+
+  // 모바일 메뉴 토글
+  document.getElementById("menuToggle").addEventListener("click", function () {
+    var navMenu = document.getElementById("navMenu");
+    navMenu.classList.toggle("open");
+  });
+</script>
+
+</body>
+</html>
