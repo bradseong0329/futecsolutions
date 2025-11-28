@@ -55,6 +55,7 @@ function initSite() {
     }
   }
 
+  // 초기 언어 적용
   applyLanguage(currentLang);
 
   // 언어 토글 버튼

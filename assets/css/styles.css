@@ -303,7 +303,7 @@ a:hover {
   background-color: #f9fafb;
 }
 
-/* 주 메뉴 / 서브 메뉴 구분선 */
+/* 주 메뉴 / 서브 메뉴 구분선 (현재 시각적 용도로만 사용 가능) */
 .nav-divider {
   height: 3px;
   background: var(--color-divider);
@@ -580,6 +580,11 @@ a:hover {
   background: linear-gradient(135deg, #4b5563, #10b981);
 }
 
+/* 산업 전용 Hero */
+.hero-industry {
+  background: linear-gradient(135deg, #05387a, #f97316);
+}
+
 .hero-text h1 {
   margin-top: 0;
   font-size: 1.7rem;
@@ -650,6 +655,41 @@ a:hover {
   left: 0;
   top: 0;
   color: var(--color-primary);
+}
+
+/* ========== 산업 이미지 그리드 ========== */
+
+.industry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.industry-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 14px 14px 12px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.industry-card img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+}
+
+.industry-card h3 {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.industry-card p {
+  margin: 2px 0 0;
+  font-size: 0.82rem;
+  color: var(--color-muted);
 }
 
 /* ========== FOOTER ========== */
@@ -843,6 +883,10 @@ a:hover {
   .hero-animation-block {
     grid-template-columns: minmax(0, 1fr);
   }
+
+  .industry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
@@ -918,5 +962,9 @@ a:hover {
     flex-direction: column;
     gap: 6px;
     align-items: flex-start;
+  }
+
+  .industry-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
