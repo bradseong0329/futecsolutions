@@ -1,4 +1,35 @@
-document.addEventListener("DOMContentLoaded", () => {
+// 공통 include 로더: data-include="header.html", "footer.html" 등 처리
+function loadIncludes() {
+  const includeEls = document.querySelectorAll("[data-include]");
+  const promises = [];
+
+  includeEls.forEach((el) => {
+    const file = el.getAttribute("data-include");
+    if (!file) return;
+
+    const p = fetch(file)
+      .then((resp) => {
+        if (!resp.ok) {
+          throw new Error("Failed to load include: " + file);
+        }
+        return resp.text();
+      })
+      .then((html) => {
+        // include 대상 요소 자체를 로드된 HTML로 교체
+        el.outerHTML = html;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    promises.push(p);
+  });
+
+  return Promise.all(promises);
+}
+
+// header/footer 포함된 후에 초기화해야 하는 로직
+function initSite() {
   // 언어 상태
   let currentLang = localStorage.getItem("futec_lang") || "ko";
   const langToggle = document.querySelector(".lang-toggle");
@@ -59,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchSubMenu = document.querySelector(".sub-menu-search-panel");
 
   menuItems.forEach((item) => {
-    const link = item.querySelector("a");
     const arrow = item.querySelector(".menu-arrow");
 
     item.addEventListener("mouseenter", () => {
@@ -71,6 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       item.classList.add("active", "open");
       if (arrow) arrow.textContent = "▲";
+      // 검색 패널 닫기
+      if (searchSubMenu) searchSubMenu.classList.remove("active");
     });
   });
 
@@ -160,4 +192,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+}
+
+// 페이지 로드 후: 먼저 include, 그 다음 초기화
+document.addEventListener("DOMContentLoaded", () => {
+  loadIncludes().then(() => {
+    initSite();
+  });
 });
