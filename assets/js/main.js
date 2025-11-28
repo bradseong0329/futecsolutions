@@ -1,234 +1,242 @@
-// include 로더: data-include="header.html" / "footer.html" 등
+// Simple include loader
 function loadIncludes() {
-  const includeEls = document.querySelectorAll("[data-include]");
-  const promises = [];
-
-  includeEls.forEach((el) => {
-    const file = el.getAttribute("data-include");
-    if (!file) return;
-
-    const p = fetch(file)
-      .then((resp) => {
-        if (!resp.ok) throw new Error("Failed to load include: " + file);
-        return resp.text();
-      })
+  const includeTargets = document.querySelectorAll("[data-include]");
+  includeTargets.forEach((el) => {
+    const src = el.getAttribute("data-include");
+    if (!src) return;
+    fetch(src)
+      .then((res) => res.text())
       .then((html) => {
-        el.outerHTML = html;
+        el.innerHTML = html;
+        if (src === "header.html") {
+          initHeaderInteractions();
+        }
+        if (src === "footer.html") {
+          initFooterInteractions();
+        }
       })
-      .catch((err) => console.error(err));
-
-    promises.push(p);
+      .catch((err) => console.error("Include load error:", src, err));
   });
-
-  return Promise.all(promises);
 }
 
-function isMobile() {
-  return window.matchMedia("(max-width: 720px)").matches;
+// Language helpers
+function getSavedLang() {
+  try {
+    return localStorage.getItem("futec_lang") || "ko";
+  } catch {
+    return "ko";
+  }
 }
 
-function initLanguageSwitcher() {
-  let currentLang = localStorage.getItem("futec_lang") || "ko";
-  const langToggle = document.querySelector(".lang-toggle");
-  const langDropdown = document.querySelector(".lang-dropdown-panel");
-  const langCodeSpan = document.querySelector(".lang-code");
-  const langArrowSpan = document.querySelector(".lang-arrow");
-
-  function applyLanguage(lang) {
-    currentLang = lang;
+function saveLang(lang) {
+  try {
     localStorage.setItem("futec_lang", lang);
-
-    const koEls = document.querySelectorAll(".lang-ko");
-    const enEls = document.querySelectorAll(".lang-en");
-
-    if (lang === "ko") {
-      koEls.forEach((el) => (el.style.display = ""));
-      enEls.forEach((el) => (el.style.display = "none"));
-      if (langCodeSpan) langCodeSpan.textContent = "KOR";
-    } else {
-      koEls.forEach((el) => (el.style.display = "none"));
-      enEls.forEach((el) => (el.style.display = ""));
-      if (langCodeSpan) langCodeSpan.textContent = "ENG";
-    }
+  } catch {
+    /* ignore */
   }
-
-  // 초기 적용
-  applyLanguage(currentLang);
-
-  if (!langToggle || !langDropdown) return;
-
-  langToggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isOpen = langDropdown.classList.contains("open");
-    langDropdown.classList.toggle("open", !isOpen);
-    if (langArrowSpan) langArrowSpan.textContent = isOpen ? "▼" : "▲";
-  });
-
-  langDropdown.querySelectorAll(".lang-option").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const targetLang = btn.dataset.lang;
-      applyLanguage(targetLang);
-      langDropdown.classList.remove("open");
-      if (langArrowSpan) langArrowSpan.textContent = "▼";
-    });
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!langDropdown.contains(e.target) && !langToggle.contains(e.target)) {
-      langDropdown.classList.remove("open");
-      if (langArrowSpan) langArrowSpan.textContent = "▼";
-    }
-  });
 }
 
-function initMenusAndSearch() {
-  const menuItems = document.querySelectorAll(".main-menu .menu-item.has-sub");
-  const searchToggleBtn = document.querySelector(".icon-button.search-toggle");
-  const searchSubMenu = document.querySelector(".sub-menu-search-panel");
-  const hamburger = document.querySelector(".hamburger");
-  const mainNav = document.querySelector(".main-nav");
-
-  function closeAllMenus() {
-    menuItems.forEach((m) => {
-      m.classList.remove("active", "open");
-      const a = m.querySelector(".menu-arrow");
-      if (a) a.textContent = "▼";
-    });
-    if (searchSubMenu) searchSubMenu.classList.remove("active");
+function applyLang(lang) {
+  const body = document.body;
+  body.classList.remove("lang-ko", "lang-en");
+  if (lang === "en") {
+    body.classList.add("lang-en");
+  } else {
+    body.classList.add("lang-ko");
   }
+
+  // Directly control visibility of language-marked elements
+  const isEn = lang === "en";
+  const koEls = document.querySelectorAll(".lang-ko");
+  const enEls = document.querySelectorAll(".lang-en");
+
+  koEls.forEach((el) => {
+    el.style.display = isEn ? "none" : "";
+  });
+  enEls.forEach((el) => {
+    el.style.display = isEn ? "" : "none";
+  });
+
+  // Update toggle text if header already loaded
+  const toggle = document.querySelector(".lang-toggle .lang-code");
+  const arrow = document.querySelector(".lang-toggle .lang-arrow");
+  if (toggle && arrow) {
+    toggle.textContent = isEn ? "ENG" : "KOR";
+    arrow.textContent = "▾";
+  }
+}
+
+// Header interactions
+function initHeaderInteractions() {
+  const body = document.body;
+
+  // apply saved language
+  applyLang(getSavedLang());
+
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+
+  const mainNav = header.querySelector(".main-nav");
+  const mobileToggle = header.querySelector(".mobile-menu-toggle");
+  const menuItems = header.querySelectorAll(".menu-item.has-submenu");
+  const searchToggle = header.querySelector(".search-toggle");
+  const searchPanel = document.querySelector(".search-panel");
+
+  // Mega menu open/close logic
+  let currentOpen = null;
 
   function openMenu(item) {
-    closeAllMenus();
-    item.classList.add("active", "open");
-    const arrow = item.querySelector(".menu-arrow");
-    if (arrow) arrow.textContent = "▲";
-  }
-
-  function closeMenu(item) {
-    item.classList.remove("active", "open");
-    const arrow = item.querySelector(".menu-arrow");
-    if (arrow) arrow.textContent = "▼";
-  }
-
-  // 데스크톱 모드 (호버)
-  if (!isMobile()) {
-    menuItems.forEach((item) => {
-      item.addEventListener("mouseenter", () => {
-        openMenu(item);
-      });
-      item.addEventListener("mouseleave", (e) => {
-        if (!item.contains(e.relatedTarget)) {
-          closeMenu(item);
-        }
-      });
-    });
-
-    // 헤더 전체 영역에서 완전히 벗어나는 경우 닫기 (옵션)
-    const header = document.querySelector(".site-header");
-    if (header) {
-      header.addEventListener("mouseleave", () => {
-        closeAllMenus();
-      });
+    if (currentOpen && currentOpen !== item) {
+      currentOpen.classList.remove("open");
     }
-  } else {
-    // 모바일 모드 (클릭 아코디언)
-    menuItems.forEach((item) => {
-      const link = item.querySelector("a");
-      if (!link) return;
-      link.addEventListener("click", (e) => {
+    currentOpen = item;
+    if (currentOpen) {
+      currentOpen.classList.add("open");
+    }
+  }
+
+  function closeMenu() {
+    if (currentOpen) {
+      currentOpen.classList.remove("open");
+      currentOpen = null;
+    }
+  }
+
+  menuItems.forEach((item) => {
+    const btn = item.querySelector(".menu-link");
+    item.addEventListener("mouseenter", () => {
+      openMenu(item);
+    });
+    item.addEventListener("mouseleave", (e) => {
+      const related = e.relatedTarget;
+      if (!item.contains(related)) {
+        closeMenu();
+      }
+    });
+    // For keyboard / click toggling
+    btn.addEventListener("click", (e) => {
+      const menuKey = item.getAttribute("data-menu");
+      if (menuKey === "products" || menuKey === "industry" || menuKey === "partners" || menuKey === "resources" || menuKey === "company") {
         e.preventDefault();
-        const isOpen = item.classList.contains("active");
-        if (isOpen) {
-          closeMenu(item);
+        if (item.classList.contains("open")) {
+          closeMenu();
         } else {
-          closeAllMenus();
           openMenu(item);
         }
-      });
-    });
-  }
-
-  // 검색 서브메뉴 (돋보기 클릭 시)
-  if (searchToggleBtn && searchSubMenu) {
-    searchToggleBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const isActive = searchSubMenu.classList.contains("active");
-      closeAllMenus();
-      searchSubMenu.classList.toggle("active", !isActive);
-    });
-  }
-
-  // 모바일 햄버거 토글
-  if (hamburger && mainNav) {
-    hamburger.addEventListener("click", () => {
-      mainNav.classList.toggle("active");
-      if (!mainNav.classList.contains("active")) {
-        closeAllMenus();
       }
+    });
+  });
+
+  // Close mega if clicking outside
+  document.addEventListener("click", (e) => {
+    if (!header.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Mobile nav
+  if (mobileToggle && mainNav) {
+    mobileToggle.addEventListener("click", () => {
+      mainNav.classList.toggle("open");
+    });
+  }
+
+  // Search panel
+  if (searchToggle && searchPanel) {
+    searchToggle.addEventListener("click", () => {
+      searchPanel.classList.toggle("open");
+    });
+  }
+
+  // Language switcher
+  const langToggleBtn = header.querySelector("#langToggleBtn");
+  const langDropdown = header.querySelector("#langDropdown");
+  const langOptions = header.querySelectorAll(".lang-option");
+
+  if (langToggleBtn && langDropdown) {
+    langToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      langDropdown.classList.toggle("open");
+      const arrow = langToggleBtn.querySelector(".lang-arrow");
+      if (arrow) {
+        arrow.textContent = langDropdown.classList.contains("open") ? "▴" : "▾";
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!langDropdown.contains(e.target) && e.target !== langToggleBtn) {
+        if (langDropdown.classList.contains("open")) {
+          langDropdown.classList.remove("open");
+          const arrow = langToggleBtn.querySelector(".lang-arrow");
+          if (arrow) arrow.textContent = "▾";
+        }
+      }
+    });
+
+    langOptions.forEach((opt) => {
+      opt.addEventListener("click", () => {
+        const targetLang = opt.getAttribute("data-lang") || "ko";
+        saveLang(targetLang);
+        applyLang(targetLang);
+        langDropdown.classList.remove("open");
+      });
     });
   }
 }
 
-function initAdminModal() {
-  const adminModal = document.getElementById("admin-modal");
-  const adminLoginForm = document.getElementById("admin-login-form");
-  const adminCancelBtn = document.getElementById("admin-cancel-btn");
-  const incTriggers = document.querySelectorAll(".footer-inc-trigger");
+// Footer interactions (admin modal)
+function initFooterInteractions() {
+  const modal = document.getElementById("adminLoginModal");
+  const triggers = document.querySelectorAll(".footer-inc-trigger");
+  const closeBtns = modal ? modal.querySelectorAll("[data-close-modal]") : [];
 
-  function openAdminModal() {
-    if (adminModal) adminModal.classList.add("active");
+  if (!modal) return;
+
+  function openModal() {
+    modal.classList.add("open");
   }
 
-  function closeAdminModal() {
-    if (adminModal) adminModal.classList.remove("active");
+  function closeModal() {
+    modal.classList.remove("open");
   }
 
-  incTriggers.forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      openAdminModal();
-    });
+  triggers.forEach((el) => {
+    el.addEventListener("click", openModal);
   });
 
-  if (adminCancelBtn) {
-    adminCancelBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      closeAdminModal();
-    });
-  }
+  closeBtns.forEach((btn) => {
+    btn.addEventListener("click", closeModal);
+  });
 
-  if (adminModal) {
-    adminModal.addEventListener("click", (e) => {
-      if (e.target === adminModal) {
-        closeAdminModal();
-      }
-    });
-  }
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
 
-  if (adminLoginForm) {
-    adminLoginForm.addEventListener("submit", (e) => {
+  const form = document.getElementById("adminLoginForm");
+  if (form) {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const id = document.getElementById("admin-id").value.trim();
-      const pw = document.getElementById("admin-password").value.trim();
+      const id = form.adminId.value.trim();
+      const pw = form.adminPw.value.trim();
       if (id === "administrator" && pw === "W@n831921@") {
-        closeAdminModal();
         window.location.href = "admin.html";
       } else {
         alert("ID 또는 비밀번호가 올바르지 않습니다.");
-        closeAdminModal();
+        form.reset();
       }
     });
   }
+  // Ensure footer language matches current setting
+  applyLang(getSavedLang());
 }
 
-function initSite() {
-  initLanguageSwitcher();
-  initMenusAndSearch();
-  initAdminModal();
-}
-
+// On DOM ready
 document.addEventListener("DOMContentLoaded", () => {
-  loadIncludes().then(() => {
-    initSite();
-  });
+  loadIncludes();
+  // If header not yet loaded, language will be applied when header init runs.
+  if (!document.body.classList.contains("lang-ko") && !document.body.classList.contains("lang-en")) {
+    applyLang(getSavedLang());
+  }
 });

@@ -7,41 +7,51 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script defer src="assets/js/main.js"></script>
   </head>
-  <body>
+  <body class="lang-ko">
     <div data-include="header.html"></div>
 
     <main class="site-main">
+      <section class="hero hero-sub">
+        <div class="hero-content">
+          <h1>
+            <span class="lang-ko">사이트 검색</span>
+            <span class="lang-en">Site Search</span>
+          </h1>
+          <p>
+            <span class="lang-ko">
+              입력하신 키워드로 퓨텍솔루션즈 웹사이트 내에서 검색합니다.
+            </span>
+            <span class="lang-en">
+              Search across the Futec Solutions website using your keywords.
+            </span>
+          </p>
+        </div>
+      </section>
+
       <section class="section">
-        <div class="section-inner">
-          <h2>
-            <span class="lang-ko">검색 결과</span>
-            <span class="lang-en">Search Results</span>
-          </h2>
-          <p id="search-query-text"></p>
-          <ul class="search-results">
-            <li>
-              <span class="lang-ko">현재는 검색 결과 예시 페이지입니다.</span>
-              <span class="lang-en">This is a placeholder search results page.</span>
-            </li>
-          </ul>
+        <div class="section-inner narrow">
+          <form class="search-form standalone-search" action="search.html" method="get">
+            <label class="lang-ko" for="q-main">검색어</label>
+            <label class="lang-en" for="q-main">Keyword</label>
+            <div class="search-input-row">
+              <input type="text" id="q-main" name="q" placeholder="Search..." />
+              <button type="submit">
+                <span class="lang-ko">검색</span>
+                <span class="lang-en">Search</span>
+              </button>
+            </div>
+          </form>
+
+          <div id="searchResults" class="search-results">
+            <p>
+              <span class="lang-ko">검색 결과 예시는 추후 추가 예정입니다.</span>
+              <span class="lang-en">Sample search results will be added later.</span>
+            </p>
+          </div>
         </div>
       </section>
     </main>
 
     <div data-include="footer.html"></div>
-
-    <script>
-      // 쿼리 파라미터 표시만 (실제 검색 로직은 추후 구현)
-      const params = new URLSearchParams(window.location.search);
-      const q = params.get("q") || "";
-      const el = document.getElementById("search-query-text");
-      if (el) {
-        el.innerHTML =
-          '<span class="lang-ko">검색어: </span><span class="lang-en">Query: </span>' +
-          '<strong>' +
-          (q ? q.replace(/</g, "&lt;") : "-") +
-          "</strong>";
-      }
-    </script>
   </body>
 </html>

@@ -7,51 +7,83 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script defer src="assets/js/main.js"></script>
   </head>
-  <body class="admin-page">
+  <body class="admin-page lang-ko">
     <div data-include="header.html"></div>
 
     <main class="site-main">
       <section class="section">
         <div class="section-inner">
-          <h2>
+          <h1>
             <span class="lang-ko">관리자 대시보드</span>
             <span class="lang-en">Admin Dashboard</span>
-          </h2>
+          </h1>
+          <p>
+            <span class="lang-ko">
+              이 페이지에서는 사이트의 한글/영문 텍스트와 섹션 구조를
+              관리하는 형태를 예시로 제공합니다. 실제 저장 기능은 연결되어 있지 않습니다.
+            </span>
+            <span class="lang-en">
+              This page illustrates how site content (Korean/English) could be
+              managed. Persistence or database integration is not implemented.
+            </span>
+          </p>
 
-          <div class="admin-dashboard">
-            <div class="admin-section">
-              <h3>
-                <span class="lang-ko">페이지 콘텐츠 관리 (예시)</span>
-                <span class="lang-en">Page Content Management (Sample)</span>
-              </h3>
-              <p>
-                <span class="lang-ko">
-                  실제 운영 시에는 DB 또는 CMS 연동을 통해 아래 필드를 저장·적용할 수 있습니다.
-                  현재는 형식만 제공되는 화면입니다.
-                </span>
-                <span class="lang-en">
-                  In a real environment, these fields would be linked to a database or CMS.
-                  This page is a structural sample only.
-                </span>
-              </p>
+          <div class="admin-grid">
+            <section class="admin-panel">
+              <h2>
+                <span class="lang-ko">언어별 텍스트 관리</span>
+                <span class="lang-en">Language Content</span>
+              </h2>
+              <label>
+                <span class="lang-ko">페이지 선택</span>
+                <span class="lang-en">Select page</span>
+              </label>
+              <select>
+                <option>index.html</option>
+                <option>vision.html</option>
+                <option>greeting.html</option>
+                <option>industry.html</option>
+                <option>privacy.html</option>
+              </select>
 
-              <div class="admin-field-list">
-                <div class="admin-field">
-                  <label>
-                    <span class="lang-ko">[KO] 메인 페이지 헤드라인</span>
-                    <span class="lang-en">[KO] Main Page Headline</span>
-                  </label>
-                  <textarea></textarea>
+              <div class="admin-editor-row">
+                <div>
+                  <h3>Korean</h3>
+                  <textarea rows="8" placeholder="Korean content..."></textarea>
                 </div>
-                <div class="admin-field">
-                  <label>
-                    <span class="lang-ko">[EN] 메인 페이지 헤드라인</span>
-                    <span class="lang-en">[EN] Main Page Headline</span>
-                  </label>
-                  <textarea></textarea>
+                <div>
+                  <h3>English</h3>
+                  <textarea rows="8" placeholder="English content..."></textarea>
                 </div>
               </div>
-            </div>
+
+              <button class="btn-primary admin-save">
+                <span class="lang-ko">(예시) 변경 내용 저장</span>
+                <span class="lang-en">(Sample) Save Changes</span>
+              </button>
+            </section>
+
+            <section class="admin-panel">
+              <h2>
+                <span class="lang-ko">이미지 & 파일 업로드</span>
+                <span class="lang-en">Images & Files</span>
+              </h2>
+              <p>
+                <span class="lang-ko">
+                  실제 운영 환경에서는 업로드된 파일을 서버 또는 스토리지에 저장하고
+                  각 페이지에 연결하는 로직이 필요합니다.
+                </span>
+                <span class="lang-en">
+                  In production, uploaded files would be stored on a server or
+                  storage service and linked to each page via backend logic.
+                </span>
+              </p>
+              <input type="file" multiple />
+              <button class="btn-secondary">
+                <span class="lang-ko">(예시) 업로드</span>
+                <span class="lang-en">(Sample) Upload</span>
+              </button>
+            </section>
           </div>
         </div>
       </section>

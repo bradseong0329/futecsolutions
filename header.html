@@ -1,323 +1,287 @@
 <header class="site-header">
   <div class="header-inner">
     <div class="logo-area">
-      <a href="index.html">
-        <img src="assets/img/logo.png" alt="Futec Solutions" class="logo-img" />
+      <a href="index.html" class="logo-link">
+        <img src="assets/img/logo.png" alt="Futec Solutions Logo" class="logo-img" />
       </a>
     </div>
 
+    <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+      <span class="lang-ko">메뉴</span>
+      <span class="lang-en">Menu</span>
+      <span class="menu-icon">☰</span>
+    </button>
+
     <nav class="main-nav">
       <ul class="main-menu">
-        <!-- 제품 -->
-        <li class="menu-item has-sub" data-menu="products">
-          <a href="javascript:void(0);">
-            <span class="menu-link-wrapper">
-              <span class="lang-ko">제품</span>
-              <span class="lang-en">Products</span>
-              <span class="menu-arrow">▼</span>
-            </span>
-          </a>
-          <div class="sub-menu">
-            <div class="sub-menu-inner">
-              <div>
-                <div class="sub-menu-title">
-                  <span class="lang-ko">제품 카테고리</span>
-                  <span class="lang-en">Product Categories</span>
-                </div>
-                <div class="sub-menu-grid-products">
-                  <div class="sub-menu-product-type">
-                    <div class="sub-menu-type-title">
-                      <span class="lang-ko">AI 영상분석 솔루션</span>
-                      <span class="lang-en">AI Video Analytics</span>
-                    </div>
-                    <ul class="sub-menu-list">
-                      <li>
-                        <a href="coming-soon.html?category=ai-analytics">
-                          <span class="lang-ko">Coming soon</span>
-                          <span class="lang-en">Coming soon</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="sub-menu-product-type">
-                    <div class="sub-menu-type-title">
-                      <span class="lang-ko">IT 인프라 솔루션</span>
-                      <span class="lang-en">IT Infrastructure</span>
-                    </div>
-                    <ul class="sub-menu-list">
-                      <li>
-                        <a href="coming-soon.html?category=it-infra">
-                          <span class="lang-ko">Coming soon</span>
-                          <span class="lang-en">Coming soon</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+        <li class="menu-item has-submenu" data-menu="products">
+          <button class="menu-link">
+            <span class="lang-ko">제품</span>
+            <span class="lang-en">Products</span>
+            <span class="menu-arrow menu-arrow-down">▾</span>
+            <span class="menu-arrow menu-arrow-up">▴</span>
+          </button>
+          <div class="mega-menu">
+            <div class="mega-inner">
+              <div class="mega-column horizontal">
+                <h3 class="lang-ko">AI 영상분석 솔루션</h3>
+                <h3 class="lang-en">AI Video Analytics Solutions</h3>
+                <ul>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">AI 기반 객체·행동 인식</a>
+                    <a href="coming-soon.html" class="lang-en">AI-based Object & Behavior Detection</a>
+                  </li>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">지능형 모니터링 및 알림</a>
+                    <a href="coming-soon.html" class="lang-en">Intelligent Monitoring & Alerts</a>
+                  </li>
+                </ul>
               </div>
-              <div class="sub-menu-desc">
-                <span class="lang-ko">
-                  퓨텍솔루션즈는 글로벌 VMS 및 AI 기반 분석과 연동 가능한 제품 포트폴리오를 준비하고 있습니다.
-                </span>
-                <span class="lang-en">
-                  Futec Solutions is building a portfolio of products that integrate with
-                  leading VMS platforms and AI-based analytics.
-                </span>
+              <div class="mega-column horizontal">
+                <h3 class="lang-ko">IT 인프라 솔루션</h3>
+                <h3 class="lang-en">IT Infrastructure Solutions</h3>
+                <ul>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">영상 관제 서버 & 스토리지</a>
+                    <a href="coming-soon.html" class="lang-en">Video Management Servers & Storage</a>
+                  </li>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">네트워크 & 보안 인프라</a>
+                    <a href="coming-soon.html" class="lang-en">Network & Security Infrastructure</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </li>
 
-        <!-- 산업 -->
-        <li class="menu-item has-sub" data-menu="industry">
-          <a href="javascript:void(0);">
-            <span class="menu-link-wrapper">
-              <span class="lang-ko">산업</span>
-              <span class="lang-en">Industries</span>
-              <span class="menu-arrow">▼</span>
-            </span>
-          </a>
-          <div class="sub-menu">
-            <div class="sub-menu-inner">
-              <div>
-                <div class="sub-menu-title">
-                  <span class="lang-ko">주요 산업</span>
-                  <span class="lang-en">Key Industries</span>
-                </div>
-                <ul class="sub-menu-list">
-                  <!-- 모두 industry.html 동일 페이지로 이동 (앵커만 다름) -->
-                  <li><a href="industry.html#retail">리테일(매장)</a></li>
-                  <li><a href="industry.html#campus">기업 캠퍼스</a></li>
-                  <li><a href="industry.html#manufacturing">제조/물류</a></li>
-                  <li><a href="industry.html#datacenter">데이터센터/창고</a></li>
-                  <li><a href="industry.html#construction">건설/산업안전</a></li>
-                  <li><a href="industry.html#healthcare">헬스케어/의료/병원</a></li>
-                  <li><a href="industry.html#hospitality">서비스/호텔</a></li>
-                  <li><a href="industry.html#public-space">다중이용시설</a></li>
-                  <li><a href="industry.html#smart-city">스마트 도시</a></li>
-                  <li><a href="industry.html#public-safety">공공 안전</a></li>
-                  <li><a href="industry.html#utilities">에너지/유틸리티</a></li>
-                  <li><a href="industry.html#transport">운송–허브/공항</a></li>
-                  <li><a href="industry.html#education">교육 캠퍼스</a></li>
-                  <li><a href="industry.html#gaming">게이밍/카지노</a></li>
+        <li class="menu-item has-submenu" data-menu="industry">
+          <button class="menu-link">
+            <span class="lang-ko">산업</span>
+            <span class="lang-en">Industries</span>
+            <span class="menu-arrow menu-arrow-down">▾</span>
+            <span class="menu-arrow menu-arrow-up">▴</span>
+          </button>
+          <div class="mega-menu">
+            <div class="mega-inner grid-4">
+              <ul>
+                <li><a href="industry.html#retail" class="lang-ko">리테일(매장)</a></li>
+                <li><a href="industry.html#retail" class="lang-en">Retail</a></li>
+                <li><a href="industry.html#campus" class="lang-ko">기업 캠퍼스</a></li>
+                <li><a href="industry.html#campus" class="lang-en">Corporate Campus</a></li>
+              </ul>
+              <ul>
+                <li><a href="industry.html#manufacturing" class="lang-ko">제조/물류</a></li>
+                <li><a href="industry.html#manufacturing" class="lang-en">Manufacturing & Logistics</a></li>
+                <li><a href="industry.html#datacenter" class="lang-ko">데이터센터/창고</a></li>
+                <li><a href="industry.html#datacenter" class="lang-en">Data Center & Warehouse</a></li>
+              </ul>
+              <ul>
+                <li><a href="industry.html#construction" class="lang-ko">건설/산업안전</a></li>
+                <li><a href="industry.html#construction" class="lang-en">Construction & Safety</a></li>
+                <li><a href="industry.html#healthcare" class="lang-ko">헬스케어/의료/병원</a></li>
+                <li><a href="industry.html#healthcare" class="lang-en">Healthcare & Hospitals</a></li>
+              </ul>
+              <ul>
+                <li><a href="industry.html#hospitality" class="lang-ko">서비스/호텔</a></li>
+                <li><a href="industry.html#hospitality" class="lang-en">Hospitality & Service</a></li>
+                <li><a href="industry.html#public-safety" class="lang-ko">공공 안전</a></li>
+                <li><a href="industry.html#public-safety" class="lang-en">Public Safety</a></li>
+              </ul>
+              <ul>
+                <li><a href="industry.html#smart-city" class="lang-ko">스마트 도시</a></li>
+                <li><a href="industry.html#smart-city" class="lang-en">Smart City</a></li>
+                <li><a href="industry.html#utilities" class="lang-ko">에너지/유틸리티</a></li>
+                <li><a href="industry.html#utilities" class="lang-en">Energy & Utilities</a></li>
+              </ul>
+              <ul>
+                <li><a href="industry.html#transport" class="lang-ko">운송–허브/공항</a></li>
+                <li><a href="industry.html#transport" class="lang-en">Transport Hubs & Airports</a></li>
+                <li><a href="industry.html#education" class="lang-ko">교육 캠퍼스</a></li>
+                <li><a href="industry.html#education" class="lang-en">Education Campus</a></li>
+              </ul>
+              <ul>
+                <li><a href="industry.html#entertainment" class="lang-ko">서비스/엔터테인먼트</a></li>
+                <li><a href="industry.html#entertainment" class="lang-en">Entertainment & Leisure</a></li>
+                <li><a href="industry.html#community-safety" class="lang-ko">다중이용시설</a></li>
+                <li><a href="industry.html#community-safety" class="lang-en">Multifunctional Facilities</a></li>
+              </ul>
+              <ul>
+                <li><a href="industry.html#industry" class="lang-ko">주요기반산업</a></li>
+                <li><a href="industry.html#industry" class="lang-en">Critical Infrastructure</a></li>
+                <li><a href="industry.html#museums" class="lang-ko">문화/박물관</a></li>
+                <li><a href="industry.html#museums" class="lang-en">Culture & Museums</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="menu-item has-submenu" data-menu="partners">
+          <button class="menu-link">
+            <span class="lang-ko">파트너</span>
+            <span class="lang-en">Partners</span>
+            <span class="menu-arrow menu-arrow-down">▾</span>
+            <span class="menu-arrow menu-arrow-up">▴</span>
+          </button>
+          <div class="mega-menu">
+            <div class="mega-inner">
+              <div class="mega-column">
+                <h3 class="lang-ko">파트너 프로그램</h3>
+                <h3 class="lang-en">Partner Programs</h3>
+                <ul>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">채널 파트너 정책</a>
+                    <a href="coming-soon.html" class="lang-en">Channel Partner Policy</a>
+                  </li>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">기술 파트너 온보딩</a>
+                    <a href="coming-soon.html" class="lang-en">Technology Partner Onboarding</a>
+                  </li>
                 </ul>
               </div>
-              <div class="sub-menu-desc">
-                <span class="lang-ko">
-                  다양한 산업 환경에서 요구되는 보안·안전·운영 효율화 시나리오를 통합적으로 지원합니다.
-                </span>
-                <span class="lang-en">
-                  We support integrated security, safety, and operational efficiency use cases
-                  across multiple industries.
-                </span>
+              <div class="mega-column">
+                <h3 class="lang-ko">파트너 지원</h3>
+                <h3 class="lang-en">Partner Support</h3>
+                <ul>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">세일즈 & 마케팅 자료</a>
+                    <a href="coming-soon.html" class="lang-en">Sales & Marketing Assets</a>
+                  </li>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">기술 지원 & 교육</a>
+                    <a href="coming-soon.html" class="lang-en">Technical Support & Training</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </li>
 
-        <!-- 파트너 -->
-        <li class="menu-item has-sub" data-menu="partners">
-          <a href="javascript:void(0);">
-            <span class="menu-link-wrapper">
-              <span class="lang-ko">파트너</span>
-              <span class="lang-en">Partners</span>
-              <span class="menu-arrow">▼</span>
-            </span>
-          </a>
-          <div class="sub-menu">
-            <div class="sub-menu-inner">
-              <div>
-                <div class="sub-menu-title">
-                  <span class="lang-ko">파트너 프로그램</span>
-                  <span class="lang-en">Partner Program</span>
-                </div>
-                <ul class="sub-menu-list">
+        <li class="menu-item has-submenu" data-menu="resources">
+          <button class="menu-link">
+            <span class="lang-ko">리소스</span>
+            <span class="lang-en">Resources</span>
+            <span class="menu-arrow menu-arrow-down">▾</span>
+            <span class="menu-arrow menu-arrow-up">▴</span>
+          </button>
+          <div class="mega-menu">
+            <div class="mega-inner">
+              <div class="mega-column">
+                <h3 class="lang-ko">리소스 센터</h3>
+                <h3 class="lang-en">Resource Center</h3>
+                <ul>
                   <li>
-                    <a href="coming-soon.html?category=partners">
-                      <span class="lang-ko">Coming soon</span>
-                      <span class="lang-en">Coming soon</span>
-                    </a>
+                    <a href="coming-soon.html" class="lang-ko">솔루션 브로슈어</a>
+                    <a href="coming-soon.html" class="lang-en">Solution Brochures</a>
+                  </li>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">케이스 스터디</a>
+                    <a href="coming-soon.html" class="lang-en">Case Studies</a>
+                  </li>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">영상 & 웨비나</a>
+                    <a href="coming-soon.html" class="lang-en">Videos & Webinars</a>
                   </li>
                 </ul>
               </div>
-              <div class="sub-menu-desc">
-                <span class="lang-ko">
-                  파트너와 함께 성장할 수 있는 채널 프로그램과 기술·영업 지원 체계를 준비하고 있습니다.
-                </span>
-                <span class="lang-en">
-                  We are preparing channel programs, technical, and sales support to grow together
-                  with our partners.
-                </span>
+              <div class="mega-column">
+                <h3 class="lang-ko">지원 문서</h3>
+                <h3 class="lang-en">Support Docs</h3>
+                <ul>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">제품 매뉴얼</a>
+                    <a href="coming-soon.html" class="lang-en">Product Manuals</a>
+                  </li>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">FAQ</a>
+                    <a href="coming-soon.html" class="lang-en">FAQ</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </li>
 
-        <!-- 리소스 -->
-        <li class="menu-item has-sub" data-menu="resources">
-          <a href="javascript:void(0);">
-            <span class="menu-link-wrapper">
-              <span class="lang-ko">리소스</span>
-              <span class="lang-en">Resources</span>
-              <span class="menu-arrow">▼</span>
-            </span>
-          </a>
-          <div class="sub-menu">
-            <div class="sub-menu-inner">
-              <div>
-                <div class="sub-menu-title">
-                  <span class="lang-ko">자료</span>
-                  <span class="lang-en">Resources</span>
-                </div>
-                <ul class="sub-menu-list">
+        <li class="menu-item has-submenu" data-menu="company">
+          <button class="menu-link">
+            <span class="lang-ko">회사</span>
+            <span class="lang-en">Company</span>
+            <span class="menu-arrow menu-arrow-down">▾</span>
+            <span class="menu-arrow menu-arrow-up">▴</span>
+          </button>
+          <div class="mega-menu">
+            <div class="mega-inner">
+              <div class="mega-column">
+                <h3 class="lang-ko">회사 소개</h3>
+                <h3 class="lang-en">About Us</h3>
+                <ul>
                   <li>
-                    <a href="coming-soon.html?category=resources">
-                      <span class="lang-ko">Coming soon</span>
-                      <span class="lang-en">Coming soon</span>
-                    </a>
+                    <a href="vision.html" class="lang-ko">비전</a>
+                    <a href="vision.html" class="lang-en">Vision</a>
+                  </li>
+                  <li>
+                    <a href="greeting.html" class="lang-ko">인사말</a>
+                    <a href="greeting.html" class="lang-en">Message</a>
+                  </li>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">문의</a>
+                    <a href="coming-soon.html" class="lang-en">Contact</a>
+                  </li>
+                  <li>
+                    <a href="coming-soon.html" class="lang-ko">이벤트</a>
+                    <a href="coming-soon.html" class="lang-en">Events</a>
                   </li>
                 </ul>
-              </div>
-              <div class="sub-menu-desc">
-                <span class="lang-ko">
-                  제품 브로슈어, 활용 사례, 기술 자료 등 다양한 리소스를 순차적으로 제공할 예정입니다.
-                </span>
-                <span class="lang-en">
-                  We will gradually provide product brochures, use cases, and technical resources.
-                </span>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <!-- 회사 -->
-        <li class="menu-item has-sub" data-menu="company">
-          <a href="javascript:void(0);">
-            <span class="menu-link-wrapper">
-              <span class="lang-ko">회사</span>
-              <span class="lang-en">Company</span>
-              <span class="menu-arrow">▼</span>
-            </span>
-          </a>
-          <div class="sub-menu">
-            <div class="sub-menu-inner">
-              <div>
-                <div class="sub-menu-title">
-                  <span class="lang-ko">회사 소개</span>
-                  <span class="lang-en">About Us</span>
-                </div>
-                <ul class="sub-menu-list">
-                  <li>
-                    <a href="vision.html">
-                      <span class="lang-ko">비전</span>
-                      <span class="lang-en">Vision</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="greeting.html">
-                      <span class="lang-ko">인사말</span>
-                      <span class="lang-en">Greeting</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="coming-soon.html?category=contact">
-                      <span class="lang-ko">문의 (Coming soon)</span>
-                      <span class="lang-en">Contact (Coming soon)</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="coming-soon.html?category=events">
-                      <span class="lang-ko">이벤트 (Coming soon)</span>
-                      <span class="lang-en">Events (Coming soon)</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="sub-menu-desc">
-                <span class="lang-ko">
-                  퓨텍솔루션즈는 AI 기반 영상보안 및 인프라 솔루션을 통해 고객의 비즈니스 가치를 높이는 것을 목표로 합니다.
-                </span>
-                <span class="lang-en">
-                  Futec Solutions aims to enhance customers' business value through AI-powered video
-                  security and infrastructure solutions.
-                </span>
               </div>
             </div>
           </div>
         </li>
       </ul>
-    </nav>
 
-    <!-- 오른쪽: 파트너 포털 / 언어 / 검색 -->
-    <div class="nav-right">
-      <a href="coming-soon.html?category=partner-portal" class="btn-partner-portal">
-        <span class="lang-ko">파트너 포털</span>
-        <span class="lang-en">Partner Portal</span>
-      </a>
+      <div class="nav-right">
+        <a href="coming-soon.html" class="btn-partner-portal">
+          <span class="lang-ko">파트너 포털</span>
+          <span class="lang-en">Partner Portal</span>
+        </a>
 
-      <!-- 언어 스위처 -->
-      <div class="lang-switcher">
-        <button type="button" class="lang-toggle">
-          <span class="lang-icon">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="9"></circle>
-              <path d="M3 12h18M12 3a12 12 0 0 1 0 18M12 3a12 12 0 0 0 0 18"></path>
-            </svg>
-          </span>
-          <span class="lang-code">KOR</span>
-          <span class="lang-arrow">▼</span>
-        </button>
-        <div class="lang-dropdown-panel">
-          <div class="lang-dropdown-header">Language</div>
-          <button type="button" class="lang-option" data-lang="ko">Korean</button>
-          <button type="button" class="lang-option" data-lang="en">English</button>
+        <div class="lang-switcher">
+          <button class="lang-toggle" id="langToggleBtn" type="button">
+            <span class="lang-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M3 12h18M12 3a12 12 0 010 18M12 3a12 12 0 000 18"></path>
+              </svg>
+            </span>
+            <span class="lang-code">KOR</span>
+            <span class="lang-arrow">▾</span>
+          </button>
+          <div class="lang-dropdown-panel" id="langDropdown">
+            <div class="lang-dropdown-header">Language</div>
+            <button class="lang-option" data-lang="ko">Korean</button>
+            <button class="lang-option" data-lang="en">English</button>
+          </div>
         </div>
+
+        <button class="search-toggle" aria-label="Search">
+          <span class="search-icon">🔍</span>
+        </button>
       </div>
-
-      <!-- 검색 돋보기 -->
-      <button type="button" class="icon-button search-toggle" aria-label="Search">
-        🔍
-      </button>
-    </div>
-
-    <!-- 모바일 햄버거 -->
-    <button class="hamburger" type="button">
-      <span class="hamburger-label">
-        <span class="lang-ko">메뉴</span>
-        <span class="lang-en">Menu</span>
-      </span>
-      <span class="hamburger-icon">
-        <span></span>
-        <span></span>
-        <span></span>
-      </span>
-    </button>
+    </nav>
   </div>
 
-  <!-- 검색 서브메뉴 패널 -->
-  <div class="sub-menu sub-menu-search-panel">
-    <div class="sub-menu-inner sub-menu-search">
-      <div>
-        <div class="sub-menu-title">
-          <span class="lang-ko">검색</span>
-          <span class="lang-en">Search</span>
-        </div>
-        <form action="search.html" method="get" class="sub-menu-search-form">
-          <input type="text" name="q" placeholder="Search…" aria-label="Search" />
-          <button type="submit" class="btn-primary">
+  <div class="search-panel">
+    <div class="search-panel-inner">
+      <form action="search.html" method="get" class="search-form">
+        <label class="lang-ko" for="q">사이트 내 검색</label>
+        <label class="lang-en" for="q">Search this site</label>
+        <div class="search-input-row">
+          <input type="text" id="q" name="q" placeholder="Search..." />
+          <button type="submit">
             <span class="lang-ko">검색</span>
             <span class="lang-en">Search</span>
           </button>
-        </form>
-      </div>
-      <div class="sub-menu-desc">
-        <span class="lang-ko">
-          찾고자 하는 제품, 산업, 리소스, 회사 정보를 검색해 보세요.
-        </span>
-        <span class="lang-en">
-          Search for products, industries, resources and company information.
-        </span>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </header>
