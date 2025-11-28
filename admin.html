@@ -3,38 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <title>Admin – Futec Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script defer src="assets/js/main.js"></script>
   </head>
-  <body>
+  <body class="admin-page">
     <div data-include="header.html"></div>
 
-    <main class="site-main admin-page">
+    <main class="site-main">
       <section class="section">
         <div class="section-inner">
-          <h1>
-            <span class="lang-ko">관리자 페이지</span>
-            <span class="lang-en">Admin Page</span>
-          </h1>
+          <h2>
+            <span class="lang-ko">관리자 대시보드</span>
+            <span class="lang-en">Admin Dashboard</span>
+          </h2>
 
           <div class="admin-dashboard">
-            <p>
-              <span class="lang-ko">
-                이 페이지에서는 한글/영문 콘텐츠를 편집할 수 있는 형식이 제공됩니다.
-                (현재는 예시 UI이며 DB 연동은 포함되어 있지 않습니다.)
-              </span>
-              <span class="lang-en">
-                This page provides a sample UI for editing Korean/English content.
-                (This is a UI mock-up only; no database integration is implemented.)
-              </span>
-            </p>
+            <div class="admin-section">
+              <h3>
+                <span class="lang-ko">페이지 콘텐츠 관리 (예시)</span>
+                <span class="lang-en">Page Content Management (Sample)</span>
+              </h3>
+              <p>
+                <span class="lang-ko">
+                  실제 운영 시에는 DB 또는 CMS 연동을 통해 아래 필드를 저장·적용할 수 있습니다.
+                  현재는 형식만 제공되는 화면입니다.
+                </span>
+                <span class="lang-en">
+                  In a real environment, these fields would be linked to a database or CMS.
+                  This page is a structural sample only.
+                </span>
+              </p>
+
+              <div class="admin-field-list">
+                <div class="admin-field">
+                  <label>
+                    <span class="lang-ko">[KO] 메인 페이지 헤드라인</span>
+                    <span class="lang-en">[KO] Main Page Headline</span>
+                  </label>
+                  <textarea></textarea>
+                </div>
+                <div class="admin-field">
+                  <label>
+                    <span class="lang-ko">[EN] 메인 페이지 헤드라인</span>
+                    <span class="lang-en">[EN] Main Page Headline</span>
+                  </label>
+                  <textarea></textarea>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
     <div data-include="footer.html"></div>
-
-    <script defer src="assets/js/main.js"></script>
   </body>
 </html>

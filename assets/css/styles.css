@@ -6,16 +6,16 @@
   --color-muted: #777777;
   --color-border: #dcdcdc;
 
-  /* 로고 회색(#818181)과 연상되는 진한 회색 계열 */
+  /* 로고 회색(#818181)을 연상시키는 계열 */
   --color-header-bg: #4b5563;   /* Header/메뉴 배경 */
   --color-footer-bg: #374151;   /* Footer 배경 */
-  --color-divider: #2d3748;     /* 주 메뉴/서브메뉴 구분선 */
+  --color-divider: #2d3748;     /* 주 메뉴/서브 메뉴 구분선 */
 
   --color-accent: #0b69ff;
   --header-height: 72px;
   --max-width: 1100px;
   --transition-fast: 0.2s ease;
-  --shadow-soft: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
   --radius: 8px;
   --radius-lg: 16px;
 }
@@ -48,7 +48,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* 언어별 표시 제어 */
+/* 언어 토글용 공통 클래스 */
 .lang-ko {
   display: inline;
 }
@@ -60,9 +60,9 @@ a:hover {
 /* ========== HEADER ========== */
 
 .site-header {
-  position: sticky;   /* 모든 페이지 최상단 고정 */
+  position: sticky;   /* 스크롤해도 항상 최상단 고정 */
   top: 0;
-  z-index: 1500;      /* 스크롤/기타 요소보다 항상 위 */
+  z-index: 1500;
   background: var(--color-header-bg);
   box-shadow: var(--shadow-soft);
 }
@@ -82,7 +82,7 @@ a:hover {
 }
 
 .logo-img {
-  height: 44px; /* 로고 크기 확대 */
+  height: 44px; /* 로고 조금 더 크게 */
   width: auto;
   background-color: #ffffff;
   padding: 4px 8px;
@@ -106,7 +106,7 @@ a:hover {
 }
 
 .menu-item {
-  position: static;
+  position: relative;
   display: flex;
   align-items: center;
 }
@@ -118,7 +118,6 @@ a:hover {
   gap: 4px;
 }
 
-/* 주 메뉴 텍스트 – 어두운 배경 위 밝은 글자 */
 .menu-item > a {
   font-size: 0.95rem;
   font-weight: 500;
@@ -127,18 +126,18 @@ a:hover {
   display: inline-block;
 }
 
-/* 서브메뉴가 있는 항목의 화살표 아이콘 */
+/* 서브메뉴 화살표 */
 .menu-arrow {
   font-size: 0.65rem;
   transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
-/* 디폴트(닫힘): 아래 방향 + 옅은 색 */
+/* 닫힌 상태 */
 .menu-item.has-sub .menu-arrow {
   color: #9ca3af;
 }
 
-/* 열렸을 때: 위 방향 + 더 밝은 색 */
+/* 열린 상태 */
 .menu-item.has-sub.open .menu-arrow {
   color: #fbbf24;
   transform: translateY(-1px);
@@ -173,7 +172,7 @@ a:hover {
   text-decoration: none;
 }
 
-/* ==== 언어 스위처 (지구본 + KOR/ENG + Language 팝업) ==== */
+/* ==== 언어 스위처 ==== */
 
 .lang-switcher {
   position: relative;
@@ -197,7 +196,7 @@ a:hover {
   color: #ffffff;
 }
 
-/* 모던 지구본 아이콘 */
+/* 지구본 아이콘 */
 .lang-icon svg {
   width: 16px;
   height: 16px;
@@ -216,7 +215,7 @@ a:hover {
   opacity: 0.8;
 }
 
-/* Language 팝업 패널 */
+/* Language 팝업 */
 .lang-dropdown-panel {
   position: absolute;
   right: 0;
@@ -259,7 +258,7 @@ a:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* 검색 아이콘 버튼 (돋보기) */
+/* 검색 아이콘 버튼 */
 .icon-button.search-toggle {
   border: none;
   background: transparent;
@@ -303,13 +302,12 @@ a:hover {
   background-color: #f9fafb;
 }
 
-/* 주 메뉴 / 서브 메뉴 구분선 (현재 시각적 용도로만 사용 가능) */
+/* ========== 서브 메뉴 ========== */
+
 .nav-divider {
   height: 3px;
   background: var(--color-divider);
 }
-
-/* ========== 서브메뉴(메가메뉴) ========== */
 
 /* 공통 서브 메뉴 */
 .sub-menu {
@@ -333,7 +331,7 @@ a:hover {
   visibility: visible;
 }
 
-/* 내부 그리드: 좌(리스트) / 우(설명) */
+/* 서브 메뉴 내부 레이아웃 */
 .sub-menu-inner {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -343,7 +341,6 @@ a:hover {
   gap: 32px;
 }
 
-/* 서브 메뉴 제목 */
 .sub-menu-title {
   font-size: 0.85rem;
   text-transform: uppercase;
@@ -352,14 +349,13 @@ a:hover {
   margin-bottom: 8px;
 }
 
-/* 서브 메뉴 리스트 (상하 정렬) */
+/* 기본 리스트 (상하 정렬) */
 .sub-menu-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* 서브 메뉴 항목 */
 .sub-menu-list li a {
   display: block;
   padding: 6px 0;
@@ -372,14 +368,14 @@ a:hover {
   color: #c7d2fe;
 }
 
-/* 우측 설명 */
+/* 서브 메뉴 설명 */
 .sub-menu-desc {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.5;
 }
 
-/* 제품 서브메뉴: 제목/항목 같은 배경(추가 색상 구분 없음) */
+/* 제품 서브 메뉴: 제목/제품 동일 배경 */
 .sub-menu-grid-products {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -395,7 +391,7 @@ a:hover {
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* 산업 서브메뉴: 4개 단위 그리드 */
+/* 산업 서브 메뉴: 4열 그리드 */
 .menu-item[data-menu="industry"] .sub-menu-inner {
   grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
 }
@@ -412,7 +408,7 @@ a:hover {
   font-size: 0.88rem;
 }
 
-/* 검색 서브메뉴 (돋보기 아이콘 클릭 시) */
+/* 검색 서브 메뉴 */
 .sub-menu-search-panel {
   top: calc(var(--header-height) + 3px);
 }
@@ -434,13 +430,12 @@ a:hover {
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* 검색 서브메뉴 활성화 */
 .sub-menu-search-panel.active {
   opacity: 1;
   visibility: visible;
 }
 
-/* ========== 공통 버튼 ========== */
+/* ========== 버튼 공통 ========== */
 
 .btn-primary {
   display: inline-block;
@@ -524,7 +519,7 @@ a:hover {
 
 /* 서브페이지 Hero (애니메이션 블록) */
 .hero-sub {
-  background: #f3f5fb;
+  background: #111827;
 }
 
 .hero-animation-block {
@@ -567,7 +562,7 @@ a:hover {
   right: -10px;
 }
 
-/* 카테고리별 색상 변주 */
+/* 페이지별 색상 변주 */
 .hero-vision {
   background: linear-gradient(135deg, #05387a, #0b69ff);
 }
@@ -580,19 +575,22 @@ a:hover {
   background: linear-gradient(135deg, #4b5563, #10b981);
 }
 
-/* 산업 전용 Hero */
 .hero-industry {
   background: linear-gradient(135deg, #05387a, #f97316);
+}
+
+/* Hero 텍스트: 항상 밝은 색으로 */
+.hero-sub .hero-text h1,
+.hero-sub .hero-text p {
+  color: #f9fafb;
 }
 
 .hero-text h1 {
   margin-top: 0;
   font-size: 1.7rem;
-  color: var(--color-primary);
 }
 
 .hero-text p {
-  color: var(--color-muted);
   margin-bottom: 14px;
 }
 
@@ -701,7 +699,7 @@ a:hover {
   margin-top: 40px;
 }
 
-/* 상단: 제품 / 리소스 / 회사 3컬럼 가로 배치 */
+/* 상단: 3컬럼 가로 */
 .footer-inner {
   max-width: var(--max-width);
   margin: 0 auto 16px;
@@ -745,16 +743,16 @@ a:hover {
 }
 
 .footer-copy {
-  /* 언어별 span으로 제어 */
+  /* Inc. 클릭용 span 포함 */
 }
 
 .footer-privacy-link {
-  color: #fbbf24;  /* 배경과 대비되는 색상 */
+  color: #ffffff; /* 흰색 계열로 가시성 강조 */
   font-weight: 500;
 }
 
 .footer-privacy-link:hover {
-  color: #fde68a;
+  color: #e5e7eb;
 }
 
 /* Inc. 클릭 시 관리자 로그인 모달 트리거 */
@@ -805,17 +803,7 @@ a:hover {
   border: 1px solid var(--color-border);
 }
 
-/* 검색 결과 리스트 */
-.search-results {
-  list-style: none;
-  padding-left: 0;
-}
-
-.search-results li {
-  margin-bottom: 6px;
-}
-
-/* 개인정보 처리방침 */
+/* 개인정보 처리방침 페이지 */
 .privacy-policy h2 {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -827,7 +815,6 @@ a:hover {
 }
 
 /* 관리자 페이지 공통 스타일 */
-.admin-page .admin-login-box,
 .admin-page .admin-dashboard {
   margin-top: 20px;
   padding: 16px;
@@ -871,6 +858,16 @@ a:hover {
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
   font-size: 0.85rem;
+}
+
+/* 검색 결과 리스트 */
+.search-results {
+  list-style: none;
+  padding-left: 0;
+}
+
+.search-results li {
+  margin-bottom: 6px;
 }
 
 /* ========== 반응형 ========== */
@@ -918,7 +915,7 @@ a:hover {
     width: 100%;
   }
 
-  /* 모바일: 서브 메뉴는 아코디언 형태로 표시 */
+  /* 모바일: 서브 메뉴는 아코디언 */
   .sub-menu {
     position: static;
     width: 100%;

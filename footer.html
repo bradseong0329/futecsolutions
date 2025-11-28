@@ -1,7 +1,6 @@
 <footer class="site-footer">
-  <!-- 상단: 제품 / 리소스 / 회사 (좌우 가로 배치) -->
   <div class="footer-inner">
-    <!-- 제품 (Products) -->
+    <!-- 제품 -->
     <div class="footer-column">
       <h4>
         <span class="lang-ko">제품</span>
@@ -11,19 +10,19 @@
         <li>
           <a href="coming-soon.html?category=ai-analytics">
             <span class="lang-ko">AI 영상분석 솔루션</span>
-            <span class="lang-en">AI Video Analytics Solutions</span>
+            <span class="lang-en">AI Video Analytics</span>
           </a>
         </li>
         <li>
           <a href="coming-soon.html?category=it-infra">
             <span class="lang-ko">IT 인프라 솔루션</span>
-            <span class="lang-en">IT Infrastructure Solutions</span>
+            <span class="lang-en">IT Infrastructure</span>
           </a>
         </li>
       </ul>
     </div>
 
-    <!-- 리소스 (Resources) -->
+    <!-- 리소스 -->
     <div class="footer-column">
       <h4>
         <span class="lang-ko">리소스</span>
@@ -39,7 +38,7 @@
       </ul>
     </div>
 
-    <!-- 회사 (Company) -->
+    <!-- 회사 -->
     <div class="footer-column">
       <h4>
         <span class="lang-ko">회사</span>
@@ -48,82 +47,73 @@
       <ul>
         <li>
           <a href="vision.html">
-            <span class="lang-ko">비전 (Vision)</span>
+            <span class="lang-ko">비전</span>
             <span class="lang-en">Vision</span>
           </a>
         </li>
         <li>
           <a href="greeting.html">
-            <span class="lang-ko">인사말 (Greeting)</span>
+            <span class="lang-ko">인사말</span>
             <span class="lang-en">Greeting</span>
           </a>
         </li>
         <li>
           <a href="coming-soon.html?category=contact">
-            <span class="lang-ko">문의 (Contact) - Coming soon</span>
-            <span class="lang-en">Contact - Coming soon</span>
+            <span class="lang-ko">문의 (Coming soon)</span>
+            <span class="lang-en">Contact (Coming soon)</span>
           </a>
         </li>
         <li>
           <a href="coming-soon.html?category=events">
-            <span class="lang-ko">이벤트 (Events) - Coming soon</span>
-            <span class="lang-en">Events - Coming soon</span>
+            <span class="lang-ko">이벤트 (Coming soon)</span>
+            <span class="lang-en">Events (Coming soon)</span>
           </a>
         </li>
       </ul>
     </div>
   </div>
 
-  <!-- 하단 바닥줄: 카피라이트 + Privacy Policy -->
+  <!-- 바닥줄 -->
   <div class="footer-bottom">
-    <div class="footer-bottom-left footer-copy">
-      <!-- 회사명은 항상 영문 Futec Solutions Inc. (한/영 모두 동일 문장) -->
-      <span class="lang-ko">
-        © 2025
-        <span class="footer-inc-trigger">Futec Solutions Inc.</span>
-        All Rights Reserved.
-      </span>
-      <span class="lang-en">
-        © 2025
-        <span class="footer-inc-trigger">Futec Solutions Inc.</span>
-        All Rights Reserved.
-      </span>
+    <div class="footer-copy">
+      © 2025
+      <span class="footer-inc-trigger">Futec Solutions Inc.</span>
+      All Rights Reserved.
     </div>
-    <div class="footer-bottom-right">
+    <div class="footer-links">
       <a href="privacy.html" class="footer-privacy-link">
-        <span class="lang-ko">개인정보처리지침 (Privacy Policy)</span>
+        <span class="lang-ko">개인정보처리지침</span>
         <span class="lang-en">Privacy Policy</span>
       </a>
     </div>
   </div>
 
-  <!-- 관리자 로그인 모달 (Inc. 클릭 시) -->
-  <div id="admin-modal" class="modal-backdrop">
+  <!-- 관리자 로그인 모달 -->
+  <div class="modal-backdrop" id="admin-modal">
     <div class="modal">
-      <h2>Administrator Login</h2>
+      <h2>
+        <span class="lang-ko">관리자 로그인</span>
+        <span class="lang-en">Administrator Login</span>
+      </h2>
       <form id="admin-login-form">
-        <label for="admin-id">ID</label>
-        <input
-          type="text"
-          id="admin-id"
-          name="admin-id"
-          placeholder="administrator"
-        />
-
-        <label for="admin-password">Password</label>
-        <input
-          type="password"
-          id="admin-password"
-          name="admin-password"
-          placeholder="W@n831921@"
-        />
-
-        <div class="form-actions">
-          <button type="button" class="btn-outline" id="admin-cancel-btn">
-            Cancel
-          </button>
+        <label>
+          <span class="lang-ko">ID</span>
+          <span class="lang-en">ID</span>
+          <input type="text" id="admin-id" />
+        </label>
+        <label>
+          <span class="lang-ko">비밀번호</span>
+          <span class="lang-en">Password</span>
+          <input type="password" id="admin-password" />
+        </label>
+        <div style="display:flex; gap:8px; margin-top:6px;">
           <button type="submit" class="btn-primary">
-            Login
+            <span class="lang-ko">로그인</span>
+            <span class="lang-en">Login</span>
+          </button>
+          <button type="button" id="admin-cancel-btn" class="btn-outline">
+            <span class="lang-ko">취소</span>
+            <span class="lang-en">Cancel</span>
           </button>
         </div>
       </form>

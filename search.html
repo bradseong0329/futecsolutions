@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Search – Futec Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <script defer src="assets/js/main.js"></script>
   </head>
@@ -12,22 +13,35 @@
     <main class="site-main">
       <section class="section">
         <div class="section-inner">
-          <h1>
+          <h2>
             <span class="lang-ko">검색 결과</span>
             <span class="lang-en">Search Results</span>
-          </h1>
-          <p>
-            <span class="lang-ko">
-              실제 검색 인덱스는 아직 구성되지 않았으며, 현재는 예시 페이지입니다.
-            </span>
-            <span class="lang-en">
-              A full search index is not implemented yet; this is a sample page.
-            </span>
-          </p>
+          </h2>
+          <p id="search-query-text"></p>
+          <ul class="search-results">
+            <li>
+              <span class="lang-ko">현재는 검색 결과 예시 페이지입니다.</span>
+              <span class="lang-en">This is a placeholder search results page.</span>
+            </li>
+          </ul>
         </div>
       </section>
     </main>
 
     <div data-include="footer.html"></div>
+
+    <script>
+      // 쿼리 파라미터 표시만 (실제 검색 로직은 추후 구현)
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get("q") || "";
+      const el = document.getElementById("search-query-text");
+      if (el) {
+        el.innerHTML =
+          '<span class="lang-ko">검색어: </span><span class="lang-en">Query: </span>' +
+          '<strong>' +
+          (q ? q.replace(/</g, "&lt;") : "-") +
+          "</strong>";
+      }
+    </script>
   </body>
 </html>
