@@ -1,9 +1,4 @@
-// Futec Solutions main interactions
-// 2025-11-29: Rebuilt to support header/footer includes, language toggle, and Genetec-style mega menu.
-
-// ----------------------
-// Include loader
-// ----------------------
+// Simple include loader
 function loadIncludes() {
   const includeTargets = document.querySelectorAll("[data-include]");
   includeTargets.forEach((el) => {
@@ -13,7 +8,6 @@ function loadIncludes() {
       .then((res) => res.text())
       .then((html) => {
         el.innerHTML = html;
-
         if (src === "header.html") {
           initHeaderInteractions();
         }
@@ -25,13 +19,11 @@ function loadIncludes() {
   });
 }
 
-// ----------------------
 // Language helpers
-// ----------------------
 function getSavedLang() {
   try {
     return localStorage.getItem("futec_lang") || "ko";
-  } catch (e) {
+  } catch {
     return "ko";
   }
 }
@@ -39,297 +31,212 @@ function getSavedLang() {
 function saveLang(lang) {
   try {
     localStorage.setItem("futec_lang", lang);
-  } catch (e) {
-    // ignore storage errors
+  } catch {
+    /* ignore */
   }
 }
 
-/**
- * Apply language to the whole page.
- * - Adds body.lang-ko / body.lang-en
- * - Shows elements with .lang-ko / .lang-en accordingly
- * - Updates header language code button if present
- */
 function applyLang(lang) {
-  const normalized = lang === "en" ? "en" : "ko";
-  const isKo = normalized === "ko";
-
   const body = document.body;
-  if (!body) return;
-
   body.classList.remove("lang-ko", "lang-en");
-  body.classList.add(isKo ? "lang-ko" : "lang-en");
-
-  // Toggle per-language elements
-  const koNodes = document.querySelectorAll(".lang-ko");
-  const enNodes = document.querySelectorAll(".lang-en");
-
-  koNodes.forEach((el) => {
-    el.style.display = isKo ? "" : "none";
-  });
-  enNodes.forEach((el) => {
-    el.style.display = isKo ? "none" : "";
-  });
-
-  // Update language switcher label if present
-  const header = document.querySelector(".site-header");
-  if (header) {
-    const langCodeEl = header.querySelector(".lang-toggle .lang-code");
-    const koOption = header.querySelector('.lang-option[data-lang="ko"]');
-    const enOption = header.querySelector('.lang-option[data-lang="en"]');
-
-    if (langCodeEl) {
-      langCodeEl.textContent = isKo ? "KOR" : "ENG";
-    }
-
-    [koOption, enOption].forEach((btn) => {
-      if (!btn) return;
-      if (btn.getAttribute("data-lang") === normalized) {
-        btn.classList.add("is-active");
-      } else {
-        btn.classList.remove("is-active");
-      }
-    });
+  if (lang === "en") {
+    body.classList.add("lang-en");
+  } else {
+    body.classList.add("lang-ko");
   }
 
-  saveLang(normalized);
+  // Directly control visibility of language-marked elements
+  const isEn = lang === "en";
+  const koEls = document.querySelectorAll(".lang-ko");
+  const enEls = document.querySelectorAll(".lang-en");
+
+  koEls.forEach((el) => {
+    el.style.display = isEn ? "none" : "";
+  });
+  enEls.forEach((el) => {
+    el.style.display = isEn ? "" : "none";
+  });
+
+  // Update toggle text if header already loaded
+  const toggle = document.querySelector(".lang-toggle .lang-code");
+  const arrow = document.querySelector(".lang-toggle .lang-arrow");
+  if (toggle && arrow) {
+    toggle.textContent = isEn ? "ENG" : "KOR";
+    arrow.textContent = "▾";
+  }
 }
 
-// ----------------------
-// Header interactions (mega menu, mobile nav, search, language)
-// ----------------------
+// Header interactions
 function initHeaderInteractions() {
+  const body = document.body;
+
+  // apply saved language
+  applyLang(getSavedLang());
+
   const header = document.querySelector(".site-header");
   if (!header) return;
 
   const mainNav = header.querySelector(".main-nav");
   const mobileToggle = header.querySelector(".mobile-menu-toggle");
-  const searchToggle = header.querySelector(".search-toggle");
-  const searchPanel = header.querySelector(".search-panel");
-
-  // Language switcher elements
-  const langToggleBtn = header.querySelector("#langToggleBtn");
-  const langDropdown = header.querySelector("#langDropdown");
-  const langOptions = langDropdown ? langDropdown.querySelectorAll(".lang-option") : [];
-
   const menuItems = header.querySelectorAll(".menu-item.has-submenu");
-  const desktopMq = window.matchMedia("(min-width: 961px)");
+  const searchToggle = header.querySelector(".search-toggle");
+  const searchPanel = document.querySelector(".search-panel");
 
-  // -------- Mobile main navigation toggle --------
-  if (mobileToggle && mainNav) {
-    mobileToggle.addEventListener("click", () => {
-      const isOpen = mainNav.classList.toggle("open");
+  // Mega menu open/close logic
+  let currentOpen = null;
 
-      // Close mega-menus and search panel when mobile nav state changes
-      if (!isOpen) {
-        closeAllMegaMenus();
-      }
-      if (searchPanel) {
-        searchPanel.classList.remove("open");
-      }
-    });
+  function openMenu(item) {
+    if (currentOpen && currentOpen !== item) {
+      currentOpen.classList.remove("open");
+    }
+    currentOpen = item;
+    if (currentOpen) {
+      currentOpen.classList.add("open");
+    }
   }
 
-  // -------- Search panel toggle --------
-  if (searchToggle && searchPanel) {
-    searchToggle.addEventListener("click", () => {
-      const nowOpen = !searchPanel.classList.contains("open");
-      searchPanel.classList.toggle("open", nowOpen);
-
-      // When opening search panel on desktop, close mega menus
-      if (nowOpen && desktopMq.matches) {
-        closeAllMegaMenus();
-      }
-    });
-  }
-
-  // -------- Mega menu (Genetec-style) --------
-  function closeAllMegaMenus() {
-    menuItems.forEach((item) => item.classList.remove("open"));
-    header.classList.remove("submenu-open");
-  }
-
-  function openMegaMenu(item) {
-    if (!item) return;
-    menuItems.forEach((mi) => {
-      if (mi === item) {
-        mi.classList.add("open");
-      } else {
-        mi.classList.remove("open");
-      }
-    });
-    header.classList.add("submenu-open");
+  function closeMenu() {
+    if (currentOpen) {
+      currentOpen.classList.remove("open");
+      currentOpen = null;
+    }
   }
 
   menuItems.forEach((item) => {
-    const trigger = item.querySelector(".menu-link");
-    if (!trigger) return;
-
-    // Hover / focus (desktop)
+    const btn = item.querySelector(".menu-link");
     item.addEventListener("mouseenter", () => {
-      if (!desktopMq.matches) return;
-      openMegaMenu(item);
+      openMenu(item);
     });
-
-    // For keyboard navigation on desktop
-    trigger.addEventListener("focus", () => {
-      if (!desktopMq.matches) return;
-      openMegaMenu(item);
+    item.addEventListener("mouseleave", (e) => {
+      const related = e.relatedTarget;
+      if (!item.contains(related)) {
+        closeMenu();
+      }
     });
-
-    // Click behavior:
-    // - On desktop: click toggles the mega menu instead of navigating.
-    // - On mobile: expands/collapses this section within the slide-down menu.
-    trigger.addEventListener("click", (event) => {
-      const isDesktop = desktopMq.matches;
-      const isOpen = item.classList.contains("open");
-
-      // Always prevent default navigation for the top-level buttons,
-      // since actual navigation happens via links in the mega menu.
-      event.preventDefault();
-
-      if (isDesktop) {
-        if (isOpen) {
-          item.classList.remove("open");
-          header.classList.remove("submenu-open");
+    // For keyboard / click toggling
+    btn.addEventListener("click", (e) => {
+      const menuKey = item.getAttribute("data-menu");
+      if (menuKey === "products" || menuKey === "industry" || menuKey === "partners" || menuKey === "resources" || menuKey === "company") {
+        e.preventDefault();
+        if (item.classList.contains("open")) {
+          closeMenu();
         } else {
-          openMegaMenu(item);
-        }
-      } else {
-        // Mobile accordion behavior
-        if (isOpen) {
-          item.classList.remove("open");
-        } else {
-          // Close others and open this one
-          menuItems.forEach((mi) => mi.classList.remove("open"));
-          item.classList.add("open");
+          openMenu(item);
         }
       }
     });
   });
 
-  // When mouse leaves the whole header area on desktop, close the mega menu
-  header.addEventListener("mouseleave", () => {
-    if (!desktopMq.matches) return;
-    closeAllMegaMenus();
-  });
-
-  // Close mega menus on ESC key
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeAllMegaMenus();
-      if (langDropdown) {
-        langDropdown.classList.remove("open");
-      }
-      if (searchPanel) {
-        searchPanel.classList.remove("open");
-      }
+  // Close mega if clicking outside
+  document.addEventListener("click", (e) => {
+    if (!header.contains(e.target)) {
+      closeMenu();
     }
   });
 
-  // On viewport resize, close mega menus to avoid broken layouts
-  desktopMq.addEventListener("change", () => {
-    closeAllMegaMenus();
-    if (mainNav) {
-      mainNav.classList.remove("open");
-    }
-  });
+  // Mobile nav
+  if (mobileToggle && mainNav) {
+    mobileToggle.addEventListener("click", () => {
+      mainNav.classList.toggle("open");
+    });
+  }
 
-  // -------- Language switcher --------
+  // Search panel
+  if (searchToggle && searchPanel) {
+    searchToggle.addEventListener("click", () => {
+      searchPanel.classList.toggle("open");
+    });
+  }
+
+  // Language switcher
+  const langToggleBtn = header.querySelector("#langToggleBtn");
+  const langDropdown = header.querySelector("#langDropdown");
+  const langOptions = header.querySelectorAll(".lang-option");
+
   if (langToggleBtn && langDropdown) {
-    langToggleBtn.addEventListener("click", (event) => {
-      event.stopPropagation();
+    langToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
       langDropdown.classList.toggle("open");
+      const arrow = langToggleBtn.querySelector(".lang-arrow");
+      if (arrow) {
+        arrow.textContent = langDropdown.classList.contains("open") ? "▴" : "▾";
+      }
     });
 
-    langOptions.forEach((btn) => {
-      btn.addEventListener("click", (event) => {
-        event.stopPropagation();
-        const lang = btn.getAttribute("data-lang") || "ko";
-        applyLang(lang);
+    document.addEventListener("click", (e) => {
+      if (!langDropdown.contains(e.target) && e.target !== langToggleBtn) {
+        if (langDropdown.classList.contains("open")) {
+          langDropdown.classList.remove("open");
+          const arrow = langToggleBtn.querySelector(".lang-arrow");
+          if (arrow) arrow.textContent = "▾";
+        }
+      }
+    });
+
+    langOptions.forEach((opt) => {
+      opt.addEventListener("click", () => {
+        const targetLang = opt.getAttribute("data-lang") || "ko";
+        saveLang(targetLang);
+        applyLang(targetLang);
         langDropdown.classList.remove("open");
       });
     });
-
-    // Close language dropdown when clicking outside
-    document.addEventListener("click", (event) => {
-      if (!langDropdown.classList.contains("open")) return;
-      if (!header.contains(event.target)) {
-        langDropdown.classList.remove("open");
-      }
-    });
   }
-
-  // Initialize language based on saved preference
-  applyLang(getSavedLang());
 }
 
-// ----------------------
-// Footer interactions (admin login modal + language sync)
-// ----------------------
+// Footer interactions (admin modal)
 function initFooterInteractions() {
   const modal = document.getElementById("adminLoginModal");
-  if (!modal) {
-    // Still ensure language is synced with header/body
-    applyLang(getSavedLang());
-    return;
+  const triggers = document.querySelectorAll(".footer-inc-trigger");
+  const closeBtns = modal ? modal.querySelectorAll("[data-close-modal]") : [];
+
+  if (!modal) return;
+
+  function openModal() {
+    modal.classList.add("open");
   }
 
-  const overlay = modal;
-  const closeButtons = modal.querySelectorAll("[data-close-modal]");
-  const adminLinks = document.querySelectorAll('[href="admin.html"], .js-open-admin-modal');
-
-  function openModal(event) {
-    if (event) event.preventDefault();
-    overlay.classList.add("open");
-    document.body.classList.add("modal-open");
+  function closeModal() {
+    modal.classList.remove("open");
   }
 
-  function closeModal(event) {
-    if (event) event.preventDefault();
-    overlay.classList.remove("open");
-    document.body.classList.remove("modal-open");
-  }
-
-  adminLinks.forEach((link) => {
-    link.addEventListener("click", openModal);
+  triggers.forEach((el) => {
+    el.addEventListener("click", openModal);
   });
 
-  closeButtons.forEach((btn) => {
+  closeBtns.forEach((btn) => {
     btn.addEventListener("click", closeModal);
   });
 
-  overlay.addEventListener("click", (event) => {
-    if (event.target === overlay) {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
       closeModal();
     }
   });
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      if (overlay.classList.contains("open")) {
-        closeModal();
+  const form = document.getElementById("adminLoginForm");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const id = form.adminId.value.trim();
+      const pw = form.adminPw.value.trim();
+      if (id === "administrator" && pw === "W@n831921@") {
+        window.location.href = "admin.html";
+      } else {
+        alert("ID 또는 비밀번호가 올바르지 않습니다.");
+        form.reset();
       }
-    }
-  });
-
+    });
+  }
   // Ensure footer language matches current setting
   applyLang(getSavedLang());
 }
 
-// ----------------------
-// DOM ready
-// ----------------------
+// On DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   loadIncludes();
-
-  // If header/footer not yet loaded (or language not set),
-  // still apply saved language to the base document so that
-  // non-included content follows the same rule.
-  if (
-    !document.body.classList.contains("lang-ko") &&
-    !document.body.classList.contains("lang-en")
-  ) {
+  // If header not yet loaded, language will be applied when header init runs.
+  if (!document.body.classList.contains("lang-ko") && !document.body.classList.contains("lang-en")) {
     applyLang(getSavedLang());
   }
 });
