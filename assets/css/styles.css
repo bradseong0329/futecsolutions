@@ -126,12 +126,12 @@ a:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 18px;
+  padding: 4px 14px;
   border-radius: 999px;
   border: 1.5px solid rgba(255, 255, 255, 0.8);
   background-color: #ffffff;
-  min-width: 170px;
-  height: 52px;
+  min-width: 150px;
+  height: 44px;
   overflow: hidden;
 }
 
@@ -1185,9 +1185,9 @@ a:focus {
 
   /* 모바일에서 로고 영역 크기 축소 */
   .site-header__logo-img-wrapper {
-    min-width: 140px;
-    height: 40px;
-    padding: 4px 12px;
+    min-width: 130px;
+    height: 38px;
+    padding: 3px 10px;
   }
 
   .site-header__logo-text {
