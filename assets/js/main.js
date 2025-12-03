@@ -116,6 +116,7 @@ function initMegaMenu() {
   const header = document.querySelector(".site-header-wrapper");
   const mega = document.getElementById("mega-menu");
   const divider = document.querySelector(".mega-divider");
+
   if (!header || !mega || !divider) return;
 
   const mainMenuItems = document.querySelectorAll(
@@ -141,6 +142,9 @@ function initMegaMenu() {
     item.addEventListener("focusin", () => {
       openMega(menu, item, mega, divider);
     });
+
+    // 🔍 검색 아이콘은 아래의 공통 클릭 토글에서 제외 (검색 전용 로직에서 처리)
+    if (menu === "search") return;
 
     // 주 메뉴(텍스트/화살표 포함)를 클릭하면 토글
     trigger.addEventListener("click", (event) => {
