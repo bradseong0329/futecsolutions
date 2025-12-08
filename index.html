@@ -9,6 +9,22 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- index.html 전용 모바일 레이아웃 보정 -->
+    <style>
+      @media (max-width: 768px) {
+        .hero__inner {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .hero__visual {
+          justify-self: stretch;
+          margin-top: 24px;
+        }
+      }
+    </style>
+
+
   </head>
   <body>
     <div id="header-placeholder"></div>
@@ -63,114 +79,6 @@
           </div>
 
           <div class="hero__visual">
-
-
-
-
-
-<div class="hero-visual-card" style="min-width: 420px;">
-  <div class="hero-visual-card__badge">
-    <span class="lang-ko">글로벌 시장 인사이트</span>
-    <span class="lang-en">Global Market Insights</span>
-  </div>
-
-  <div class="hero-visual-card__title">
-    <span class="lang-ko" style="white-space: nowrap;">
-      영상감시 · VMS · AI 영상분석 시장 전망
-    </span>
-    <span class="lang-en" style="white-space: nowrap;">
-      Video Surveillance · VMS · AI Video Analytics Outlook
-    </span>
-  </div>
-
-  <!-- 글로벌 영상감시 시장 -->
-  <div class="hero-visual-card__metric-row">
-    <span class="lang-ko" style="white-space: nowrap;">
-      <strong>글로벌 영상감시 시장 (’24→’30)</strong><br>
-        $73.8B → $147.7B · 12.3% CAGR<br>
-        (원화) 약 110.7조원 → 221.6조원 (환산 기준: 1,500원/USD)
-    </span>
-    <span class="lang-en" style="white-space: nowrap;">
-      <strong>Global Video Surveillance (’24→’30)</strong><br>
-        $73.8B → $147.7B · 12.3% CAGR
-    </span>
-  </div>
-
-  <!-- 영상감시 시장 출처 -->
-  <p class="hero__text" style="margin: 2px 0 8px 0; font-size: 0.65rem; opacity: 0.7;">
-    <span class="lang-ko">
-      출처: Grand View Research, “Video Surveillance Market Outlook 2025–2030”,
-      MarketsandMarkets “Video Surveillance Market Report”.
-    </span>
-    <span class="lang-en">
-      Source: Grand View Research (2025–2030),
-      MarketsandMarkets Video Surveillance Market Report.
-    </span>
-  </p>
-
-  <!-- 글로벌 VMS 시장 -->
-  <div class="hero-visual-card__metric-row">
-    <span class="lang-ko" style="white-space: nowrap;">
-      <strong>글로벌 VMS 시장 (’24→’33)</strong><br>
-        $11.7B → $40.9B · 14.3% CAGR<br>
-        (원화) 약 17.5조원 → 61.4조원 (환산 기준: 1,500원/USD)
-    </span>
-    <span class="lang-en" style="white-space: nowrap;">
-      <strong>Global VMS Market (’24→’33)</strong><br>
-        $11.7B → $40.9B · 14.3% CAGR
-    </span>
-  </div>
-
-  <!-- VMS 시장 출처 -->
-  <p class="hero__text" style="margin: 2px 0 8px 0; font-size: 0.65rem; opacity: 0.7;">
-    <span class="lang-ko">
-      출처: Grand View Research, “Video Management Software Market, 2024–2033”.
-    </span>
-    <span class="lang-en">
-      Source: Grand View Research, “Video Management Software Market, 2024–2033”.
-    </span>
-  </p>
-
-  <!-- 글로벌 AI 영상분석 시장 -->
-  <div class="hero-visual-card__metric-row">
-    <span class="lang-ko" style="white-space: nowrap;">
-      <strong>글로벌 AI 영상분석 시장 (’24→’34)</strong><br>
-        $7.8B → $42.2B · 18.3% CAGR<br>
-        (원화) 약 11.7조원 → 63.3조원 (환산 기준: 1,500원/USD)
-    </span>
-    <span class="lang-en" style="white-space: nowrap;">
-      <strong>Global AI Video Analytics (’24→’34)</strong><br>
-        $7.8B → $42.2B · 18.3% CAGR
-    </span>
-  </div>
-
-  <!-- AI 영상분석 시장 출처 -->
-  <p class="hero__text" style="margin: 2px 0 8px 0; font-size: 0.65rem; opacity: 0.7;">
-    <span class="lang-ko">
-      출처: Allied Market Research, “AI-Powered Video Analytics Market 2024–2034”,
-      Fortune Business Insights “Video Analytics Market Report”.
-    </span>
-    <span class="lang-en">
-      Source: Allied Market Research (2024–2034),
-      Fortune Business Insights Video Analytics Market Report.
-    </span>
-  </p>
-
-  <p class="hero__text" style="margin-top: 8px; font-size: 0.78rem;">
-    <span class="lang-ko">
-      글로벌 영상감시, VMS, AI 영상분석 소프트웨어 시장은 모두 두 자릿수에
-      가까운 연평균 성장률(CAGR)을 보이며 중장기적으로 빠르게 확대될
-      것으로 전망됩니다. 
-    </span>
-    <span class="lang-en">
-      Global video surveillance, VMS, and AI video analytics software markets
-      are all expected to see strong double-digit CAGR growth.
-    </span>
-  </p>
-</div>
-
-
-
 
 
           </div>
@@ -343,6 +251,115 @@
                 </span>
               </p>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--light">
+        <div class="container">
+          <div style="display: flex; justify-content: center;">
+            <div class="hero-visual-card">
+              <div class="hero-visual-card__badge">
+                <span class="lang-ko">글로벌 시장 인사이트</span>
+                <span class="lang-en">Global Market Insights</span>
+              </div>
+
+              <div class="hero-visual-card__title">
+                <span class="lang-ko" style="white-space: nowrap;">
+                  영상감시 · VMS · AI 영상분석 시장 전망
+                </span>
+                <span class="lang-en" style="white-space: nowrap;">
+                  Video Surveillance · VMS · AI Video Analytics Outlook
+                </span>
+              </div>
+
+              <!-- 글로벌 영상감시 시장 -->
+              <div class="hero-visual-card__metric-row">
+                <span class="lang-ko" style="white-space: nowrap;">
+                  <strong>글로벌 영상감시 시장 (’24→’30)</strong><br>
+                    $73.8B → $147.7B · 12.3% CAGR<br>
+                    (원화) 약 110.7조원 → 221.6조원 (환산 기준: 1,500원/USD)
+                </span>
+                <span class="lang-en" style="white-space: nowrap;">
+                  <strong>Global Video Surveillance (’24→’30)</strong><br>
+                    $73.8B → $147.7B · 12.3% CAGR<br>
+                    (KRW) approx. 110.7T → 221.6T (FX rate: 1,500 KRW/USD)
+                </span>
+              </div>
+
+              <!-- 영상감시 시장 출처 -->
+              <p class="hero__text" style="margin: 2px 0 8px 0; font-size: 0.65rem; opacity: 0.7;">
+                <span class="lang-ko">
+                  출처: Grand View Research, “Video Surveillance Market Outlook 2025–2030”,
+                  MarketsandMarkets “Video Surveillance Market Report”.
+                </span>
+                <span class="lang-en">
+                  Source: Grand View Research, “Video Surveillance Market Outlook 2025–2030”,
+                  MarketsandMarkets “Video Surveillance Market Report”.
+                </span>
+              </p>
+
+              <!-- 글로벌 VMS 시장 -->
+              <div class="hero-visual-card__metric-row">
+                <span class="lang-ko" style="white-space: nowrap;">
+                  <strong>글로벌 VMS 시장 (’24→’33)</strong><br>
+                    $11.7B → $40.9B · 14.3% CAGR<br>
+                    (원화) 약 17.5조원 → 61.4조원 (환산 기준: 1,500원/USD)
+                </span>
+                <span class="lang-en" style="white-space: nowrap;">
+                  <strong>Global VMS Market (’24→’33)</strong><br>
+                    $11.7B → $40.9B · 14.3% CAGR<br>
+                    (KRW) approx. 17.5T → 61.4T (FX rate: 1,500 KRW/USD)
+                </span>
+              </div>
+
+              <!-- VMS 시장 출처 -->
+              <p class="hero__text" style="margin: 2px 0 8px 0; font-size: 0.65rem; opacity: 0.7;">
+                <span class="lang-ko">
+                  출처: Grand View Research, “Video Management Software Market, 2024–2033”.
+                </span>
+                <span class="lang-en">
+                  Source: Grand View Research, “Video Management Software Market, 2024–2033”.
+                </span>
+              </p>
+
+              <!-- 글로벌 AI 영상분석 시장 -->
+              <div class="hero-visual-card__metric-row">
+                <span class="lang-ko" style="white-space: nowrap;">
+                  <strong>글로벌 AI 영상분석 시장 (’24→’34)</strong><br>
+                    $7.8B → $42.2B · 18.3% CAGR<br>
+                    (원화) 약 11.7조원 → 63.3조원 (환산 기준: 1,500원/USD)
+                </span>
+                <span class="lang-en" style="white-space: nowrap;">
+                  <strong>Global AI Video Analytics (’24→’34)</strong><br>
+                    $7.8B → $42.2B · 18.3% CAGR
+                </span>
+              </div>
+
+              <!-- AI 영상분석 시장 출처 -->
+              <p class="hero__text" style="margin: 2px 0 8px 0; font-size: 0.65rem; opacity: 0.7%;">
+                <span class="lang-ko">
+                  출처: Allied Market Research, “AI-Powered Video Analytics Market 2024–2034”,
+                  Fortune Business Insights “Video Analytics Market Report”.
+                </span>
+                <span class="lang-en">
+                  Source: Allied Market Research (2024–2034),
+                  Fortune Business Insights Video Analytics Market Report.
+                </span>
+              </p>
+
+              <p class="hero__text" style="margin-top: 8px; font-size: 0.78rem; max-width: 100%;">
+                <span class="lang-ko">
+                  글로벌 영상감시, VMS, AI 영상분석 소프트웨어 시장은 모두 두 자릿수에
+                  가까운 연평균 성장률(CAGR)을 보이며 중장기적으로 빠르게 확대될
+                  것으로 전망됩니다. 
+                </span>
+                <span class="lang-en">
+                  Global video surveillance, VMS, and AI video analytics software markets
+                  are all expected to see strong double-digit CAGR growth.
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
